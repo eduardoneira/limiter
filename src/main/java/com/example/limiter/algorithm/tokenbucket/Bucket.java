@@ -1,25 +1,24 @@
 package com.example.limiter.algorithm.tokenbucket;
 
-public class Bucket {
+import java.util.concurrent.atomic.AtomicInteger;
+
+class Bucket implements BucketTaker, BucketManagement {
 
     private final int maxCapacity;
-    private int currentCapacity;
+    private final AtomicInteger currentCapacity;
 
-    public Bucket(int maxCapacity) {
+    Bucket(int maxCapacity) {
         this.maxCapacity = maxCapacity;
-        this.currentCapacity = maxCapacity;
+        this.currentCapacity = new AtomicInteger(maxCapacity);
     }
 
+    @Override
     public boolean take() {
-        if (this.currentCapacity > 0) {
-            this.currentCapacity--;
-            return true;
-        }
-
-        return false;
+        return this.currentCapacity.getAndUpdate(c -> Math.max(c - 1, 0)) > 0;
     }
 
-    public void refill(int i) {
-        this.currentCapacity = Math.min(this.currentCapacity + i, this.maxCapacity);
+    @Override
+    public void refill(int tokens) {
+        this.currentCapacity.updateAndGet(c -> Math.min(c + tokens, this.maxCapacity));
     }
 }
