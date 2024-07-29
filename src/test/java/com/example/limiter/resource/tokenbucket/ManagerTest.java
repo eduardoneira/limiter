@@ -1,5 +1,6 @@
-package com.example.limiter.algorithm.tokenbucket;
+package com.example.limiter.resource.tokenbucket;
 
+import com.example.limiter.executor.ScheduledExecutorMock;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,14 +14,12 @@ class ManagerTest {
 
         assertEquals(executor, manager.getExecutor());
 
-        final BucketTaker bucket = manager.getBucket();
-
-        assertTrue(bucket.take());
-        assertFalse(bucket.take());
+        assertTrue(manager.use());
+        assertFalse(manager.use());
 
         executor.tick();
 
-        assertTrue(bucket.take());
+        assertTrue(manager.use());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.limiter.algorithm.tokenbucket;
+package com.example.limiter.resource.tokenbucket;
 
 import org.junit.jupiter.api.Test;
 

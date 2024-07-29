@@ -1,10 +1,10 @@
-package com.example.limiter.algorithm.tokenbucket;
+package com.example.limiter.executor;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-class BackgroundExecutor implements ScheduledExecutor {
+public class BackgroundExecutor implements ScheduledExecutor {
 
     private final ScheduledExecutorService executor;
     private final long period;

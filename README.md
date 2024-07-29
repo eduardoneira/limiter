@@ -2,7 +2,7 @@
 
 A basic rate limiter library.
 
-## Specifications
+## General Specifications
 
 - Server side rate limiter
 - Should allow different throttling rules
@@ -10,6 +10,12 @@ A basic rate limiter library.
 - Should work in a distributed environment
 - Inform to users being throttled
 
-## Algorithms
+## Implementation specifications
 
-- Token Bucket
+- Filter by IP address of request
+
+## Resource management algorithms
+
+### Token Bucket
+
+Configure *token size* and *refill time* in seconds.

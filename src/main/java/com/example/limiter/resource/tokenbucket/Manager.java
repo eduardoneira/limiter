@@ -1,12 +1,15 @@
-package com.example.limiter.algorithm.tokenbucket;
+package com.example.limiter.resource.tokenbucket;
 
-public class Manager {
+import com.example.limiter.executor.ScheduledExecutor;
+import com.example.limiter.resource.Resource;
+
+class Manager implements Resource {
 
     private final Bucket bucket;
     private final int refillCount;
     private final ScheduledExecutor executor;
 
-    public Manager(int bucketCapacity, int refillCount, ScheduledExecutor executor) {
+    Manager(int bucketCapacity, int refillCount, ScheduledExecutor executor) {
         this.bucket = new Bucket(bucketCapacity);
         this.refillCount = refillCount;
         this.executor = executor;
@@ -18,11 +21,12 @@ public class Manager {
         this.bucket.refill(this.refillCount);
     }
 
-    BucketTaker getBucket() {
-        return bucket;
-    }
-
     ScheduledExecutor getExecutor() {
         return executor;
+    }
+
+    @Override
+    public boolean use() {
+        return this.bucket.take();
     }
 }
