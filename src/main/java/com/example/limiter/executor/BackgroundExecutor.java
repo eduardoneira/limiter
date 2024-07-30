@@ -19,4 +19,12 @@ public class BackgroundExecutor implements ScheduledExecutor {
     public void schedule(Runnable runnable) {
         this.executor.scheduleAtFixedRate(runnable, this.period, this.period, this.unit);
     }
+
+    public static class Factory implements ScheduledExecutor.Factory {
+
+        @Override
+        public ScheduledExecutor create(long period, TimeUnit unit) {
+            return new BackgroundExecutor(period, unit);
+        }
+    }
 }
