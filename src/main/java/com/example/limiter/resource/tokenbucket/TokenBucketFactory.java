@@ -8,26 +8,20 @@ import java.util.concurrent.TimeUnit;
 
 public class TokenBucketFactory implements ResourceFactory {
 
-    private final int bucketSize;
-    private final int refillCount;
-    private final long refillTime;
+    private final TokenBucketConfiguration configuration;
     private final ScheduledExecutor.Factory executorFactory;
 
-    public TokenBucketFactory(int bucketSize,
-                              int refillCount,
-                              long refillTime,
+    public TokenBucketFactory(TokenBucketConfiguration configuration,
                               ScheduledExecutor.Factory executorFactory) {
-        this.bucketSize = bucketSize;
-        this.refillCount = refillCount;
-        this.refillTime = refillTime;
+        this.configuration = configuration;
         this.executorFactory = executorFactory;
     }
 
     @Override
     public Resource create() {
         return new Manager(
-                this.bucketSize,
-                this.refillCount,
-                this.executorFactory.create(this.refillTime, TimeUnit.SECONDS));
+                this.configuration.getBucketSize(),
+                this.configuration.getRefillCount(),
+                this.executorFactory.create(this.configuration.getRefillTime(), TimeUnit.SECONDS));
     }
 }

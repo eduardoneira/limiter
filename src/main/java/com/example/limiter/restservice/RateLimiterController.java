@@ -16,12 +16,7 @@ public class RateLimiterController {
     private final IPRule ipRule;
 
     public RateLimiterController(TokenBucketConfiguration tokenBucketConfiguration) {
-        this.ipRule = new IPRule(
-                new TokenBucketFactory(
-                        tokenBucketConfiguration.getBucketSize(),
-                        tokenBucketConfiguration.getRefillCount(),
-                        tokenBucketConfiguration.getRefillTime(),
-                        new BackgroundExecutor.Factory()));
+        this.ipRule = new IPRule(new TokenBucketFactory(tokenBucketConfiguration, new BackgroundExecutor.Factory()));
     }
 
     @GetMapping("/validateRequest")
