@@ -1,6 +1,7 @@
 package com.example.limiter.restservice;
 
 import com.example.limiter.executor.BackgroundExecutor;
+import com.example.limiter.resource.tokenbucket.TokenBucketConfiguration;
 import com.example.limiter.resource.tokenbucket.TokenBucketFactory;
 import com.example.limiter.rule.IPRule;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,12 +13,11 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class RateLimiterController {
 
-    private final IPRule ipRule = new IPRule(
-            new TokenBucketFactory(
-                    1,
-                    1,
-                    60,
-                    new BackgroundExecutor.Factory()));
+    private final IPRule ipRule;
+
+    public RateLimiterController(TokenBucketConfiguration tokenBucketConfiguration) {
+        this.ipRule = new IPRule(new TokenBucketFactory(tokenBucketConfiguration, new BackgroundExecutor.Factory()));
+    }
 
     @GetMapping("/validateRequest")
     public String validate(HttpServletRequest request) {

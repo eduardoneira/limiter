@@ -11,7 +11,9 @@ class TokenBucketFactoryTest {
     @Test
     void testCreate() {
         final ScheduledExecutorMock executor = new ScheduledExecutorMock();
-        final TokenBucketFactory factory = new TokenBucketFactory(1, 1, 1, (_, _) -> executor);
+        final TokenBucketFactory factory = new TokenBucketFactory(
+                new TokenBucketConfiguration(1, 1, 1),
+                (_, _) -> executor);
 
         final Resource resource = factory.create();
 

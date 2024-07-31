@@ -1,6 +1,7 @@
 package com.example.limiter.rule;
 
 import com.example.limiter.executor.ScheduledExecutorMock;
+import com.example.limiter.resource.tokenbucket.TokenBucketConfiguration;
 import com.example.limiter.resource.tokenbucket.TokenBucketFactory;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,9 @@ class IPRuleTest {
     @Test
     void testAllow() {
         final ScheduledExecutorMock executor = new ScheduledExecutorMock();
-        final TokenBucketFactory factory = new TokenBucketFactory(1, 1, 1, (_, _) -> executor);
+        final TokenBucketFactory factory = new TokenBucketFactory(
+                new TokenBucketConfiguration(1, 1, 1),
+                (_, _) -> executor);
 
         final IPRule ipFilter = new IPRule(factory);
 
