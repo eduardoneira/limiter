@@ -18,4 +18,4 @@ A basic rate limiter library.
 
 ### Token Bucket
 
-Configure *token size* and *refill time* in seconds.
+Configure *bucket size*, *refill count* and *refill time* in seconds.
