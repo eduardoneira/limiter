@@ -33,6 +33,10 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
 
+    # Execute docker compose
+    - name: Setup Environment
+      run: docker compose -f docker-compose.yml up -d --wait
+
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 

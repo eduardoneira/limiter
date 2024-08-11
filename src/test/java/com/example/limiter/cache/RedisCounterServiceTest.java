@@ -17,16 +17,8 @@ class RedisCounterServiceTest {
     private RedisCounterService counterService;
 
     @BeforeEach
-    void setUp() {
-        deleteCounter();
-    }
-
     @AfterEach
-    void tearDown() {
-        deleteCounter();
-    }
-
-    private void deleteCounter() {
+    void deleteCounter() {
         this.counterService.delete(getKey());
     }
 
