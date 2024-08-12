@@ -9,12 +9,12 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes = {RedisConfig.class, RedisCounterService.class})
+@SpringBootTest(classes = {RedisConfig.class, RedisCounterRepository.class})
 @ActiveProfiles("test")
-class RedisCounterServiceTest {
+class RedisCounterRepositoryTest {
 
     @Autowired
-    private RedisCounterService counterService;
+    private RedisCounterRepository counterService;
 
     @BeforeEach
     @AfterEach

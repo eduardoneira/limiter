@@ -1,6 +1,6 @@
 package com.example.limiter.resource.tokenbucket;
 
-interface BucketManagement {
+interface ManageableBucket {
 
     void refill(int tokens);
 }

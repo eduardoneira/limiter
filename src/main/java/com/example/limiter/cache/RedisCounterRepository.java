@@ -1,16 +1,16 @@
 package com.example.limiter.cache;
 
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Service
-public class RedisCounterService {
+@Repository
+public class RedisCounterRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    public RedisCounterService(RedisTemplate<String, String> redisTemplate) {
+    public RedisCounterRepository(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

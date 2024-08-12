@@ -5,21 +5,21 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ManagerTest {
+class BucketManagerTest {
 
     @Test
     void testAutomaticRefill() {
         final ScheduledExecutorMock executor = new ScheduledExecutorMock();
-        final Manager manager = new Manager(1, 1, executor);
+        final BucketManager bucketManager = new BucketManager(1, 1, executor);
 
-        assertEquals(executor, manager.getExecutor());
+        assertEquals(executor, bucketManager.getExecutor());
 
-        assertTrue(manager.use());
-        assertFalse(manager.use());
+        assertTrue(bucketManager.use());
+        assertFalse(bucketManager.use());
 
         executor.tick();
 
-        assertTrue(manager.use());
+        assertTrue(bucketManager.use());
     }
 
 }

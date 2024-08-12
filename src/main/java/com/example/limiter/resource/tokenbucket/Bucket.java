@@ -1,8 +1,10 @@
 package com.example.limiter.resource.tokenbucket;
 
+import com.example.limiter.resource.Resource;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
-class Bucket implements BucketTaker, BucketManagement {
+class Bucket implements Resource, ManageableBucket {
 
     private final int maxCapacity;
     private final AtomicInteger currentCapacity;
@@ -13,7 +15,7 @@ class Bucket implements BucketTaker, BucketManagement {
     }
 
     @Override
-    public boolean take() {
+    public boolean use() {
         return this.currentCapacity.getAndUpdate(c -> Math.max(c - 1, 0)) > 0;
     }
 
