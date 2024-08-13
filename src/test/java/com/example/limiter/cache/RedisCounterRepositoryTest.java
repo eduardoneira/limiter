@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class RedisCounterRepositoryTest {
 
     @Autowired
-    private RedisCounterRepository counterService;
+    private RedisCounterRepository counterRepository;
 
     @BeforeEach
     @AfterEach
     void deleteCounter() {
-        this.counterService.delete(getKey());
+        this.counterRepository.delete(getKey());
     }
 
     private String getKey() {
@@ -28,32 +28,32 @@ class RedisCounterRepositoryTest {
 
     @Test
     void testEmptyGet() {
-        assertTrue(this.counterService.get(getKey()).isEmpty());
+        assertTrue(this.counterRepository.get(getKey()).isEmpty());
     }
 
     @Test
     void testCreate() {
-        this.counterService.create(getKey(), 2L);
+        this.counterRepository.create(getKey(), 2L);
 
-        final Optional<Long> counter = this.counterService.get(getKey());
+        final Optional<Long> counter = this.counterRepository.get(getKey());
         assertTrue(counter.isPresent());
         assertEquals(2L, counter.get().longValue());
     }
 
     @Test
     void testDelete() {
-        this.counterService.create(getKey(), 2L);
+        this.counterRepository.create(getKey(), 2L);
 
-        this.counterService.delete(getKey());
-        assertTrue(this.counterService.get(getKey()).isEmpty());
+        this.counterRepository.delete(getKey());
+        assertTrue(this.counterRepository.get(getKey()).isEmpty());
     }
 
     @Test
     void testIncrement() {
-        this.counterService.create(getKey(), 3L);
-        this.counterService.increment(getKey(), 1L);
+        this.counterRepository.create(getKey(), 3L);
+        this.counterRepository.increment(getKey(), 1L);
 
-        final Optional<Long> counter = this.counterService.get(getKey());
+        final Optional<Long> counter = this.counterRepository.get(getKey());
 
         assertTrue(counter.isPresent());
         assertEquals(4L, counter.get().longValue());
@@ -61,10 +61,10 @@ class RedisCounterRepositoryTest {
 
     @Test
     void testDecrement() {
-        this.counterService.create(getKey(), 4L);
-        this.counterService.decrement(getKey());
+        this.counterRepository.create(getKey(), 4L);
+        this.counterRepository.decrement(getKey());
 
-        final Optional<Long> counter = this.counterService.get(getKey());
+        final Optional<Long> counter = this.counterRepository.get(getKey());
 
         assertTrue(counter.isPresent());
         assertEquals(3L, counter.get().longValue());

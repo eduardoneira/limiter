@@ -3,14 +3,18 @@ package com.example.limiter.resource.tokenbucket;
 import com.example.limiter.cache.RedisCounterRepository;
 import com.example.limiter.resource.Resource;
 
-public class RemoteBucket implements Resource, ManageableBucket {
+public class RemoteBucket implements Resource, ManagedBucket {
 
     private final RedisCounterRepository repository;
+    private final int maxCapacity;
     private final String id;
 
-    public RemoteBucket(RedisCounterRepository repository, String id) {
+    public RemoteBucket(RedisCounterRepository repository, int maxCapacity, String id) {
         this.repository = repository;
+        this.maxCapacity = maxCapacity;
         this.id = id;
+
+        this.repository.create(id, maxCapacity);
     }
 
     @Override
@@ -20,7 +24,6 @@ public class RemoteBucket implements Resource, ManageableBucket {
 
     @Override
     public boolean use() {
-        repository.decrement(this.id);
-        return true;
+        return repository.decrementUpToMin(this.id, 0);
     }
 }

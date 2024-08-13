@@ -12,7 +12,7 @@ class BucketManager {
         this.executor = executor;
     }
 
-    void manage(ManageableBucket bucket) {
+    void manage(ManagedBucket bucket) {
         this.executor.schedule(() -> bucket.refill(this.refillCount));
     }
 }

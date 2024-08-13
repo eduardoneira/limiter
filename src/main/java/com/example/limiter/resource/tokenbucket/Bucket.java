@@ -4,7 +4,7 @@ import com.example.limiter.resource.Resource;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-class Bucket implements Resource, ManageableBucket {
+class Bucket implements Resource, ManagedBucket {
 
     private final int maxCapacity;
     private final AtomicInteger currentCapacity;
