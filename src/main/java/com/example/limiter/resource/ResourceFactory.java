@@ -2,5 +2,5 @@ package com.example.limiter.resource;
 
 public interface ResourceFactory {
 
-    Resource create();
+    Resource create(String id);
 }

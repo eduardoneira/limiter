@@ -12,23 +12,23 @@ class BucketTest {
         final Bucket bucket = new Bucket(capacity);
 
         for (int i = 0; i < capacity; i++) {
-            assertTrue(bucket.take());
+            assertTrue(bucket.use());
         }
 
-        assertFalse(bucket.take());
+        assertFalse(bucket.use());
     }
 
     @Test
     void testRefill() {
         final Bucket bucket = new Bucket(1);
 
-        assertTrue(bucket.take());
-        assertFalse(bucket.take());
+        assertTrue(bucket.use());
+        assertFalse(bucket.use());
 
         bucket.refill(1);
 
-        assertTrue(bucket.take());
-        assertFalse(bucket.take());
+        assertTrue(bucket.use());
+        assertFalse(bucket.use());
     }
 
     @Test
@@ -37,7 +37,7 @@ class BucketTest {
 
         bucket.refill(5);
 
-        assertTrue(bucket.take());
-        assertFalse(bucket.take());
+        assertTrue(bucket.use());
+        assertFalse(bucket.use());
     }
 }
