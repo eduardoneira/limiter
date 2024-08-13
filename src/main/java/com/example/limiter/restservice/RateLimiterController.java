@@ -1,5 +1,6 @@
 package com.example.limiter.restservice;
 
+import com.example.limiter.cache.RedisCounterRepository;
 import com.example.limiter.executor.BackgroundExecutor;
 import com.example.limiter.resource.tokenbucket.TokenBucketConfiguration;
 import com.example.limiter.resource.tokenbucket.TokenBucketFactory;
@@ -16,8 +17,11 @@ public class RateLimiterController {
 
     private final IPRule ipRule;
 
-    public RateLimiterController(TokenBucketConfiguration tokenBucketConfiguration) {
-        this.ipRule = new IPRule(new TokenBucketFactory(tokenBucketConfiguration, new BackgroundExecutor.Factory()));
+    public RateLimiterController(TokenBucketConfiguration tokenBucketConfiguration, RedisCounterRepository redisCounterRepository) {
+        this.ipRule = new IPRule(new TokenBucketFactory(
+                tokenBucketConfiguration,
+                new BackgroundExecutor.Factory(),
+                redisCounterRepository));
     }
 
     @GetMapping("/validateRequest")

@@ -1,10 +1,8 @@
 package com.example.limiter.resource.tokenbucket;
 
-import com.example.limiter.resource.Resource;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
-class Bucket implements Resource, ManagedBucket {
+class Bucket implements IBucket {
 
     private final int maxCapacity;
     private final AtomicInteger currentCapacity;

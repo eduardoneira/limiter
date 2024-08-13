@@ -1,5 +1,6 @@
 package com.example.limiter.rule;
 
+import com.example.limiter.cache.RedisCounterRepository;
 import com.example.limiter.executor.ScheduledExecutorMock;
 import com.example.limiter.resource.tokenbucket.TokenBucketConfiguration;
 import com.example.limiter.resource.tokenbucket.TokenBucketFactory;
@@ -21,12 +22,16 @@ class IPRuleTest {
     @Mock
     private HttpServletRequest request2;
 
+    @Mock
+    private RedisCounterRepository redisCounterRepository;
+
     @Test
     void testAllow() {
         final ScheduledExecutorMock executor = new ScheduledExecutorMock();
         final TokenBucketFactory factory = new TokenBucketFactory(
-                new TokenBucketConfiguration(1, 1, 1),
-                (_, _) -> executor);
+                new TokenBucketConfiguration(1, 1, 1, false),
+                (_, _) -> executor,
+                redisCounterRepository);
 
         final IPRule ipFilter = new IPRule(factory);
 

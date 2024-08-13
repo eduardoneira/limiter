@@ -3,7 +3,7 @@ package com.example.limiter.resource.tokenbucket;
 import com.example.limiter.cache.RedisCounterRepository;
 import com.example.limiter.resource.Resource;
 
-public class RemoteBucket implements Resource, ManagedBucket {
+public class RemoteBucket implements IBucket {
 
     private final RedisCounterRepository repository;
     private final int maxCapacity;
