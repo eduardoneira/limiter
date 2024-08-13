@@ -13,11 +13,14 @@ public class RedisCounterRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
     private final RedisScript<Boolean> decrementUpToMinScript;
+    private final RedisScript<Boolean> incrementUpToMaxScript;
 
     public RedisCounterRepository(RedisTemplate<String, String> redisTemplate,
-                                  RedisScript<Boolean> decrementUpToMinScript) {
+                                  RedisScript<Boolean> decrementUpToMinScript,
+                                  RedisScript<Boolean> incrementUpToMaxScript) {
         this.redisTemplate = redisTemplate;
         this.decrementUpToMinScript = decrementUpToMinScript;
+        this.incrementUpToMaxScript = incrementUpToMaxScript;
     }
 
 
@@ -31,6 +34,12 @@ public class RedisCounterRepository {
 
     public void increment(String key, long delta) {
         this.redisTemplate.opsForValue().increment(key, delta);
+    }
+
+    public void incrementUpToMax(String key, long delta, long maxValue) {
+        this.redisTemplate.execute(
+                this.incrementUpToMaxScript,
+                List.of(key, String.valueOf(delta), String.valueOf(maxValue)));
     }
 
     public void decrement(String key) {

@@ -37,4 +37,26 @@ class RemoteBucketTest {
         assertFalse(remoteBucket.use());
     }
 
+    @Test
+    void refillTest() {
+        final RemoteBucket remoteBucket = new RemoteBucket(this.counterRepository, 1, getId());
+
+        assertTrue(remoteBucket.use());
+        assertFalse(remoteBucket.use());
+
+        remoteBucket.refill(1);
+
+        assertTrue(remoteBucket.use());
+        assertFalse(remoteBucket.use());
+    }
+
+    @Test
+    void overflowTest() {
+        final RemoteBucket remoteBucket = new RemoteBucket(this.counterRepository, 1, getId());
+
+        remoteBucket.refill(1);
+
+        assertTrue(remoteBucket.use());
+        assertFalse(remoteBucket.use());
+    }
 }

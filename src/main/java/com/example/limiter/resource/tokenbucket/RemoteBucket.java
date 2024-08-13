@@ -19,7 +19,7 @@ public class RemoteBucket implements Resource, ManagedBucket {
 
     @Override
     public void refill(int tokens) {
-        this.repository.increment(this.id, tokens);
+        this.repository.incrementUpToMax(this.id, tokens, this.maxCapacity);
     }
 
     @Override

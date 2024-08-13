@@ -52,4 +52,9 @@ public class RedisConfig {
         return RedisScript.of(resourceLoader.getResource("classpath:scripts/decrementUpToMin.lua"), Boolean.class);
     }
 
+    @Bean
+    public RedisScript<Boolean> incrementUpToMaxScript() {
+        return RedisScript.of(resourceLoader.getResource("classpath:scripts/incrementUpToMax.lua"), Boolean.class);
+    }
+
 }
