@@ -15,7 +15,7 @@ class TokenBucketFactoryTest {
                 new TokenBucketConfiguration(1, 1, 1),
                 (_, _) -> executor);
 
-        final Resource resource = factory.create();
+        final Resource resource = factory.create("test");
 
         assertTrue(resource.use());
         assertFalse(resource.use());

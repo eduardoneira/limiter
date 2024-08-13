@@ -11,7 +11,7 @@ public class Request {
 
     public Request(HttpServletRequest httpServletRequest) {
         this.uri = httpServletRequest.getRequestURI();
-        this.ip = httpServletRequest.getRemoteHost();
+        this.ip = httpServletRequest.getRemoteAddr();
     }
 
     public String getUri() {
